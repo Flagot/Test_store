@@ -2,7 +2,7 @@
 import random
 import string
 import logging as logger
-
+from html.parser import HTMLParser
 
 
 def generate_random_email_and_password(domain=None, email_prefix=None):
@@ -27,3 +27,14 @@ def generate_random_email_and_password(domain=None, email_prefix=None):
     return  random_info
 
 
+def convert_html_to_text(input_html_string):
+    # define a class used to convert html to text
+    class HTMLFilter(HTMLParser):
+        text = ""
+
+        def handle_data(self, data):
+            self.text += data
+
+    f = HTMLFilter()
+    f.feed(input_html_string)
+    return f.text

@@ -27,3 +27,14 @@ def get_database_credentials():
                "db_user": db_user, "db_password": db_password}
 
     return db_info
+
+
+def get_api_credentials():
+
+    base_url = get_base_url()
+    api_key = os.environ.get("API_KEY")
+    api_secret = os.environ.get("API_SECRET")
+    if not all([api_key, api_secret]):
+        raise Exception("Both 'API_KEY' and 'API_SECRET' must be set as environment variable.")
+
+    return {'base_url': base_url, 'api_key': api_key, 'api_secret': api_secret}
